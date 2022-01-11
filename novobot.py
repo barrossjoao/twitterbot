@@ -1,21 +1,36 @@
-#pegando a info do dolar
 import tweepy
 import requests
 from bs4 import BeautifulSoup
+import time
+import random
+import io
 
-page = requests.get("https://dolarhoje.com/")
-soup = BeautifulSoup(page.text, 'html.parser')
-
-real = soup.find('input', {'id': 'nacional'})['value']
+#pegando a info do dolar
+while True:
 
 
-#bot twitter 
-auth = tweepy.OAuthHandler('t17ApwVYGIqBiWWwyxm7p618y', 'cL25YeAAs2fU05OZUzmgZQJkKyEtW08Bq7OBQYPbqwrHsPNHY2')
-auth.set_access_token('1297448302682791936-h68CEZeh01vO0t84yPW61s6EnpzvCv', '7eywRpn1cvnm5Izt34a9VUIRyJC7w1JJUNqpJJJMUWizB')
+    page = requests.get("https://dolarhoje.com/")
+    soup = BeautifulSoup(page.text, 'html.parser')
 
-api = tweepy.API(auth, wait_on_rate_limit=True)
+    real = soup.find('input', {'id': 'nacional'})['value']
 
-tweet = ("A Cotação do Dólar para 1 Real no dia de hoje é " + real) 
 
-api.update_status(tweet)
-print("tweet printado com sucesso")
+    #bot twitter 
+    auth = tweepy.OAuthHandler('xIO5AGh0Y1vqczgQmUd2HcDzs', 'aC0HVV8jZ9pHHP5ttW4MkXTP4jIwggPjCnpUKy8ToA4fw8sQYu')
+    auth.set_access_token('1297448302682791936-YFZxif5aFoZ0Bg65GKkem4dhUk0We4', 'l3mL77m4cPneZajS0mthMvuKehnpJOW47uxucAgKn5hCZ')
+
+    api = tweepy.API(auth, wait_on_rate_limit=True)
+
+    f = io.open('frases.txt', encoding="utf8").read().splitlines()
+    myline =random.choice(f)
+    print(myline)
+
+    tweet = ( myline + real) 
+
+    #tweet no ar
+    api.update_status(tweet)
+    print("Tweet Printado com Sucesso")
+    time.sleep(86400)
+
+
+
