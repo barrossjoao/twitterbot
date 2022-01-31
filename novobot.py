@@ -21,9 +21,9 @@ while True:
 
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
+    #file 
     f = io.open('frases.txt', encoding="utf8").read().splitlines()
     myline =random.choice(f)
-    print(myline)
 
     tweet = ( myline + real) 
 
